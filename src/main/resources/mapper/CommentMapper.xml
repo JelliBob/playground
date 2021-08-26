@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.cos.playground.mapper.CommentMapper">
+
+ 
+ <resultMap type="com.cos.playground.model.Comment" id="Comment">
+ 	<id property="cid" column="cid" />
+ 	<result property="userId" column="user_id"/>
+ 	<result property="boardId" column="board_id"/>
+ 	<result property="content" column="content"/>
+ 	<result property="regdate" column="regdate"/>
+ 	<result property="upId" column="up_id"/>
+ </resultMap>
+ 
+   
+<!-- 게시글에서 댓글 목록 조회하기 -->
+<select id="findByBoardId" resultMap="Comment">
+select * from comment where board_id=#{boardId}
+</select>
+
+<!-- 댓글 한건 조회하기 -->
+<select id="findById" resultMap="Comment">
+select * from comment where cid=#{cid}
+</select>
+
+<!-- 댓글 쓰기 -->
+<insert id="write">
+insert into comment (user_id, content, regdate, board_id)
+values (#{userId}, #{content}, now(), #{boardId})
+</insert>
+
+<!-- 댓글 수정하기 -->
+<update id="update">
+update comment set content=#{content} where cid=#{cid}
+</update>
+
+<!-- 댓글 삭제하기 -->
+<delete id="delete">
+delete from comment where cid=#{cid}
+</delete>
+   
+   
+</mapper>
+   
