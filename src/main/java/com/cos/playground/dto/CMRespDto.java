@@ -1,7 +1,5 @@
 package com.cos.playground.dto;
 
-import com.cos.playground.model.Comment;
-
 import lombok.Data;
 
 @Data

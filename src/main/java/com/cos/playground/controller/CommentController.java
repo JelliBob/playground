@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,12 +30,16 @@ public class CommentController {
 	
 	// 댓글 쓰기
 	@PostMapping("write/{boardId}")
-	public CMRespDto<Comment> writeComment(@PathVariable int boardId, @RequestBody Comment comment, HttpSession session) {
+	public CMRespDto<Comment> writeComment(@PathVariable int boardId, @RequestBody Comment comment, 
+			HttpSession session, HttpRequest request) {
 //		CBoard board = boardService.findById(id); // 게시글을 가져옴
 		List<Comment> comments = new ArrayList<Comment>(); // 댓글목록을 담을 리스트를 선언
 		User user = (User) session.getAttribute("loginUser"); // 세션유저정보를 저장
 		CMRespDto<Comment> cm = new CMRespDto<Comment>(); // 공통 dto 선언
 
+		HttpHeaders headers = request.getHeaders();
+		System.out.println("안드로이드 요청 헤더 : " + headers.toString());
+		
 		if (user != null) {
 			comment.setBoardId(boardId);// 게시판 id를 설정
 			comment.setUserId(user.getId()); // 사용자 id를 설정
