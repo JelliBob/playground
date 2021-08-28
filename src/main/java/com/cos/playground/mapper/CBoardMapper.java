@@ -14,4 +14,5 @@ public interface CBoardMapper {
 	void write(CBoard board); // 게시글 쓰기
 	void update(CBoard board); // 게시물 수정하기
 	void delete(int id);
+	void increaseComment(int id); // 댓글수 1 증가
 }

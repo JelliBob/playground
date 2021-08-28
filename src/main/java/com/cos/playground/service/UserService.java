@@ -16,6 +16,10 @@ public class UserService{
 		return userMapper.findByUsername(username);
 	}
 	
+	public User findById(int id) {
+		return userMapper.findById(id);
+	}
+	
 	public void join(User user) {
 		userMapper.join(user);
 	}

@@ -5,9 +5,14 @@
 
 <mapper namespace="com.cos.playground.mapper.UserMapper">
 
-<!-- 회원 한건보기 -->
+<!-- 회원 한건보기 (username으로 검색) -->
 <select id="findByUsername" resultType="com.cos.playground.model.User">
 select * from user where username=#{username}
+</select>
+
+<!-- 회원 한건보기 (id로 검색) -->
+<select id="findById" resultType="com.cos.playground.model.User">
+select * from user where id=#{id}
 </select>
 
 <!-- 회원 가입하기 -->

@@ -149,14 +149,13 @@ public class UserController {
 	
 	
 	// 회원 탈퇴하기
-	// 비밀번호 확인후 탈퇴 처리(아직)
 	@PostMapping("remove")
 	public CMRespDto<User> remove(@RequestBody User user, HttpServletRequest request){
 
 		String cookie = request.getHeader("Cookie").substring(0,15);
 		CMRespDto<User> cm = new CMRespDto<User>();
 
-		// 로그인한 회원이고 비밀번호가 일치할 때
+		// 로그인한 사용자일때
 		if(cookie.equals("user=authorized")) {
 			userService.delete(user);
 			cm.setCode(1);

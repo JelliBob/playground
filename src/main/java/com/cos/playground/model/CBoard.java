@@ -21,5 +21,6 @@ public class CBoard {
 	private int commentCount;
 	private int userId; // fk
 	private String writer;
+	private String category;
 	private List<Comment> comments;
 }

@@ -18,6 +18,7 @@
  	<result property="commentCount" column="comment_count"/>
  	<result property="userId" column="user_id" />
  	<result property="writer" column="writer"/>
+ 	<result property="category" column="category"/>
  </resultMap>
  
  <!-- 게시글 한 건 보기 -->
@@ -50,5 +51,10 @@ values(#{title}, #{content}, now(), #{userId})
  <delete id="delete">
  delete from cboard where id=#{id}
  </delete>
+ 
+ <!-- 댓글이 달리면 commentCount를 1 증가하기 -->
+ <update id="increaseComment">
+  update cboard set comment_count = comment_count+1 where id=#{id}
+ </update>
  
  </mapper>

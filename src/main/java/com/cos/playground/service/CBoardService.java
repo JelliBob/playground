@@ -39,4 +39,8 @@ public class CBoardService {
 	public void delete(int id) {
 		boardMapper.delete(id);
 	}
+	
+	public void increaseComment(int id) {
+		boardMapper.increaseComment(id);
+	}
 }
