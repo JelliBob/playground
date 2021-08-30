@@ -15,4 +15,8 @@ public interface CBoardMapper {
 	void update(CBoard board); // 게시물 수정하기
 	void delete(int id);
 	void increaseComment(int id); // 댓글수 1 증가
+	void decreaseComment(int id); // 댓글수 1 감소
+	void increaseFav(int id); // 좋아요 수 1 증가
+	void decreaseFav(int id); // 좋아요 수 1 감소
+	CBoard topPost(); // 인기 게시글 보기
 }

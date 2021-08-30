@@ -162,6 +162,15 @@ public class CBoardController {
 	}
 
 	
-	
+	// 인기 게시글 보기
+	@GetMapping("topPost")
+	public CMRespDto<CBoard> topPost(){
+		CMRespDto<CBoard> cm = new CMRespDto<CBoard>();
+		
+		cm.setCode(1);
+		cm.setMsg("인기 게시글 조회 성공");
+		cm.setData(boardService.topPost());
+		return cm;
+	}
 
 }

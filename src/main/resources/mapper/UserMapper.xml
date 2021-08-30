@@ -5,6 +5,11 @@
 
 <mapper namespace="com.cos.playground.mapper.UserMapper">
 
+ <resultMap type="com.cos.playground.model.Fav" id="Fav">
+ 	<result property="userId" column="user_id"/>
+ 	<result property="boardId" column="board_id"/>
+ </resultMap>
+
 <!-- 회원 한건보기 (username으로 검색) -->
 <select id="findByUsername" resultType="com.cos.playground.model.User">
 select * from user where username=#{username}
@@ -31,5 +36,37 @@ where username=#{username}
 <delete id="delete">
 delete from user where username=#{username}
 </delete>
+
+<!-- 게시글 좋아요 누르기 -->
+<insert id="likePost">
+insert into fav(user_id,board_id) values (#{userId},#{boardId})
+</insert>
+
+<!-- 게시글 좋아요 취소하기 -->
+<delete id="cancleFav">
+delete from fav where user_id=#{userId} and board_id=#{boardId}
+</delete>
+
+<!-- 해당 글에 좋아요 누른 내역이 있는지 확인하기 -->
+<select id="favHistory" resultMap="Fav">
+select * from fav where user_id=#{userId} and board_id=#{boardId}
+</select>
+
+<!-- 게시글 좋아요 목록 보기 -->
+<select id="favList" resultType="com.cos.playground.model.CBoard">
+select cboard.id, cboard.title, cboard.content, cboard.regdate, cboard.user_id
+from cboard inner join (select * from fav where user_id=#{userId}) as favhistory
+where cboard.id = favhistory.board_id
+</select>
+
+<!-- 내가 작성한 글 목록 보기 -->
+<select id="myPostList" resultType="com.cos.playground.model.CBoard">
+select * from cboard where user_id=#{userId}
+</select>
+
+<!-- 내가 작성한 댓글 목록 보기 -->
+<select id="myCommentList" resultType="com.cos.playground.model.Comment">
+select * from comment where user_id=#{userId}
+</select>
 
 </mapper>

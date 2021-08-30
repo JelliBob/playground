@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cos.playground.mapper.CompanyMapper">
+
+<!-- 회원 한건보기 (username으로 검색) -->
+<select id="findByUsername" resultType="com.cos.playground.model.Company">
+select * from company where username=#{username}
+</select>
+
+<!-- 회원 한건보기 (id로 검색) -->
+<select id="findById" resultType="com.cos.playground.model.Company">
+select * from company where id=#{id}
+</select>
+
+<!-- 회원 가입하기 -->
+<insert id="join">
+insert into company(username, password, name, email, tel, info)
+values (#{username}, #{password}, #{name}, #{email}, #{tel}, #{info})
+</insert>
+
+<!-- 회원 정보 수정하기 -->
+<update id="updateInfo">
+update company set password=#{password}, name=#{name}, email=#{email}, tel=#{tel}, info=#{info}
+where username=#{username}
+</update>
+
+<!-- 회원 탈퇴 -->
+<delete id="delete">
+delete from company where username=#{username}
+</delete>
+
+<!-- 내가 작성한 글 목록 보기 -->
+<select id="myPostList" resultType="com.cos.playground.model.RBoard">
+select * from rboard where company_id=#{companyId}
+</select>
+
+
+
+</mapper>

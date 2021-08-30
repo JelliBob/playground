@@ -57,4 +57,26 @@ values(#{title}, #{content}, now(), #{userId})
   update cboard set comment_count = comment_count+1 where id=#{id}
  </update>
  
+  <!-- 댓글이 삭제되면 commentCount를 1 감소하기 -->
+ <update id="decreaseComment">
+  update cboard set comment_count = comment_count-1 where id=#{id}
+ </update>
+ 
+ <!-- 좋아요 수 1 증가 -->
+ <update id="increaseFav">
+ update cboard set fav_count = fav_count+1 where id=#{id}
+ </update>
+ 
+ <!-- 좋아요 수 1 감소 -->
+ <update id="decreaseFav">
+ update cboard set fav_count = fav_count-1 where id=#{id}
+ </update>
+ 
+ <!-- 인기 게시글 보기 -->
+ <select id="topPost" resultMap="Board">
+ select * from cboard
+where fav_count=(select max(fav_count) from cboard)
+ </select>
+ 
+ 
  </mapper>

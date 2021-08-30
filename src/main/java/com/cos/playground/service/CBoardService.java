@@ -43,4 +43,20 @@ public class CBoardService {
 	public void increaseComment(int id) {
 		boardMapper.increaseComment(id);
 	}
+	
+	public void decreaseComment(int id) {
+		boardMapper.decreaseComment(id);
+	}
+	
+	public void increaseFav(int id) {
+		boardMapper.increaseFav(id);
+	}
+	
+	public void decreaseFav(int id) {
+		boardMapper.decreaseFav(id);
+	}
+	
+	public CBoard topPost() {
+		return boardMapper.topPost();
+	}
 }

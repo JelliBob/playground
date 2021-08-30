@@ -105,6 +105,7 @@ public class CommentController {
 		// 로그인한 유저와 댓글 작성자가 같을때
 		if((cookie.equals("user=authorized")&&(user.getId()==comment.getUserId()))) {
 			commentService.delete(comment);
+			cboardService.decreaseComment(comment.getBoardId()); // 게시글의 댓글수 1 감소
 			cm.setCode(1);
 			cm.setMsg("댓글삭제 성공");
 			cm.setData(comment);
