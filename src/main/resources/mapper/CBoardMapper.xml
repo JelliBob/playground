@@ -12,7 +12,7 @@
  	<result property="title" column="title"/>
  	<result property="content" column="content"/>
  	<result property="regdate" column="regdate"/>
- 	<result property="file" column="file"/>
+ 	<result property="fileId" column="file_id"/>
  	<result property="favCount" column="fav_count"/>
  	<result property="viewCount" column="view_count"/>
  	<result property="commentCount" column="comment_count"/>
@@ -33,13 +33,13 @@
  
  <!-- 게시글 목록 보기 -->
  <select id="findAll" resultMap="Board">
- select * from board
+ select * from cboard order by id desc
  </select>
  
  <!-- 게시글 쓰기 -->
  <insert id="write">
-insert into cboard(title, content, regdate, user_id) 
-values(#{title}, #{content}, now(), #{userId})
+insert into cboard(title, content, regdate, user_id, file_id, writer, category) 
+values(#{title}, #{content}, now(), #{userId}, #{fileId}, #{writer}, #{category})
  </insert>
  
  <!-- 게시글 수정하기 -->

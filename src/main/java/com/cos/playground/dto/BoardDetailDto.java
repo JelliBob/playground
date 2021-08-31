@@ -1,7 +1,13 @@
-package com.cos.playground.model;
+package com.cos.playground.dto;
 
 import java.sql.Timestamp;
 import java.util.List;
+
+import org.springframework.core.io.Resource;
+
+import com.cos.playground.model.Comment;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +16,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CBoard {
+public class BoardDetailDto {
 	private int id; // pk
 	private String title;
 	private String content;
 	private Timestamp regdate;
-	private int fileId;
 	private int favCount;
 	private int viewCount;
 	private int commentCount;
@@ -23,4 +28,6 @@ public class CBoard {
 	private String writer;
 	private String category;
 	private List<Comment> comments;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Resource resource; // 파일
 }
