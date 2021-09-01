@@ -44,7 +44,7 @@ insert into fav(user_id,board_id) values (#{param1},#{param2})
 
 <!-- 게시글 좋아요 취소하기 -->
 <delete id="cancleFav">
-delete from fav where user_id=#{userId} and board_id=#{boardId}
+delete from fav where user_id=#{param1} and board_id=#{param2}
 </delete>
 
 <!-- 해당 글에 좋아요 누른 내역이 있는지 확인하기 -->
