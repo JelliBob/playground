@@ -29,6 +29,7 @@ public class BoardDetailDto {
 	private String category;
 	private List<Comment> comments;
 	private String usermail;
+	private int isFav;
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Resource resource; // 파일
 }

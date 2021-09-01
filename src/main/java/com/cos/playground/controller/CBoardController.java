@@ -29,6 +29,7 @@ import com.cos.playground.dto.CMRespDto;
 import com.cos.playground.entity.UploadFile;
 import com.cos.playground.model.CBoard;
 import com.cos.playground.model.Comment;
+import com.cos.playground.model.Fav;
 import com.cos.playground.model.User;
 import com.cos.playground.service.CBoardService;
 import com.cos.playground.service.CommentService;
@@ -81,8 +82,15 @@ public class CBoardController {
 		boardDto.setWriter(board.getWriter());
 		boardDto.setCategory(board.getCategory());
 		boardDto.setComments(comments);
-		User user1 = userService.findById(user.getId());
-		boardDto.setUsermail(user1.getEmail());
+		User user1 = userService.findByUsername(user.getUsername());
+		boardDto.setUsermail(user1.getEmail()); // usermail 담아보내기
+		// 좋아요 내역이 있으면 1, 없으면 0
+		Fav fav = userService.favHistory(user.getId(), id);
+		if(fav==null) {
+			boardDto.setIsFav(0);
+		} else {
+			boardDto.setIsFav(1);
+		}
 		board.getFileId();
 		// 파일을 아이디로 검색해서 파일이름을 넣어줘야함
 		if (board.getFileId() != 0) {
