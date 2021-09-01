@@ -79,7 +79,7 @@ select *
 from (select @rownum := @rownum+1 as rownum, C.*
 from cboard C, (select @rownum := 0) tmp
 order by view_count desc) newtable
-where rownum <= 3
+where rownum < 3
  ]]>
 </select>
  
