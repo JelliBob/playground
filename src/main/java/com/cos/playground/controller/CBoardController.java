@@ -1,5 +1,6 @@
 package com.cos.playground.controller;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class CBoardController {
 		boardDto.setUsermail(user1.getEmail()); // usermail 담아보내기
 		// 좋아요 내역이 있으면 1, 없으면 0
 		Fav fav = userService.favHistory(user.getId(), id);
-		if(fav==null) {
+		if (fav == null) {
 			boardDto.setIsFav(0);
 		} else {
 			boardDto.setIsFav(1);
@@ -130,8 +131,7 @@ public class CBoardController {
 	// 게시글 쓰기
 	@PostMapping(value = "write", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
 	public CMRespDto<CBoard> write(@RequestPart(value = "strBoardDto") String strBoardDto, HttpServletRequest request,
-			@RequestPart(value = "file", required = false) MultipartFile file)
-			throws JsonMappingException, JsonProcessingException, ParseException {
+			@RequestPart(value = "file", required = false) MultipartFile file) throws ParseException, IOException {
 		// 안드로이드에서 SessionUser 클래스의 User의 id를 BoardWriteDto에 담아와야 할듯.
 
 		CMRespDto<CBoard> cm = new CMRespDto<CBoard>();
@@ -139,22 +139,27 @@ public class CBoardController {
 		String cookie = request.getHeader("Cookie").substring(0, 15);
 
 		// 문자열을 json으로
-		System.out.println("테스트중 " + strBoardDto); // 양 끝 따옴표 제거해볼까..?
-		strBoardDto = strBoardDto.substring(1,strBoardDto.length()-1);
+		System.out.println("테스트중 " + strBoardDto); // 양 끝 따옴표 제거
+		strBoardDto = strBoardDto.substring(1, strBoardDto.length() - 1);
 		strBoardDto = strBoardDto.replaceAll("\\\\", "");
 		System.out.println("테스트중 " + strBoardDto);
 
-		
+		if (file != null) {
+			System.out.println("Multipart file");
+			System.out.println("name : " + file.getName());
+			System.out.println("originFileName : " + file.getOriginalFilename());
+			System.out.println("class : " + file.getClass());
+			System.out.println("contentType : " + file.getContentType());
+			System.out.println("resource uri : " + file.getResource());
+			System.out.println("bytes : " + file.getBytes());
+		}
+
 //		// json string을 자바 객체로
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		BoardWriteDto boardDto = objectMapper.readValue(strBoardDto, BoardWriteDto.class);
-		System.out.println("제목 : " +  boardDto.getTitle());
-
-//		
-//		System.out.println("테스트중 " + boardDto);
-        
+		System.out.println("제목 : " + boardDto.getTitle());
 
 		// 디비의 cboard 테이블에 글쓰기 내용을 저장
 		CBoard board = new CBoard();
@@ -203,7 +208,6 @@ public class CBoardController {
 
 		CBoard board = boardService.findById(id); // 원본 게시글 가져오기
 
-
 		// BoardDto의 userId와 게시글의 userID가 일치할 경우
 		// 안드로이드에서 user 정보를 BoardDto에 담아서 보내줘야함
 		if (boardDto.getUserId() == board.getUserId()) {
@@ -247,8 +251,8 @@ public class CBoardController {
 
 	// 인기 게시글 보기
 	@GetMapping("topPost")
-	public CMRespDto<CBoard> topPost() {
-		CMRespDto<CBoard> cm = new CMRespDto<CBoard>();
+	public CMRespDto<List<CBoard>> topPost() {
+		CMRespDto<List<CBoard>> cm = new CMRespDto<List<CBoard>>();
 
 		cm.setCode(1);
 		cm.setMsg("인기 게시글 조회 성공");

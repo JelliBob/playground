@@ -74,9 +74,14 @@ values(#{title}, #{content}, now(), #{userId}, #{fileId}, #{writer}, #{category}
  
  <!-- 인기 게시글 보기 -->
  <select id="topPost" resultMap="Board">
- select * from cboard
-where fav_count=(select max(fav_count) from cboard)
- </select>
+<![CDATA[
+select *
+from (select @rownum := @rownum+1 as rownum, C.*
+from cboard C, (select @rownum := 0) tmp
+order by view_count desc) newtable
+where rownum <= 3
+ ]]>
+</select>
  
  
  </mapper>

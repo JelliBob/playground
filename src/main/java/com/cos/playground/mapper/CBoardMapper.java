@@ -18,5 +18,5 @@ public interface CBoardMapper {
 	void decreaseComment(int id); // 댓글수 1 감소
 	void increaseFav(int id); // 좋아요 수 1 증가
 	void decreaseFav(int id); // 좋아요 수 1 감소
-	CBoard topPost(); // 인기 게시글 보기
+	List<CBoard> topPost(); // 인기 게시글 보기
 }

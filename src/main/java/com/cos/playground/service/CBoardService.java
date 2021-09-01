@@ -56,7 +56,7 @@ public class CBoardService {
 		boardMapper.decreaseFav(id);
 	}
 	
-	public CBoard topPost() {
+	public List<CBoard> topPost() {
 		return boardMapper.topPost();
 	}
 }
