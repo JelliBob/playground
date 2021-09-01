@@ -39,7 +39,7 @@ delete from user where username=#{username}
 
 <!-- 게시글 좋아요 누르기 -->
 <insert id="likePost">
-insert into fav(user_id,board_id) values (#{userId},#{boardId})
+insert into fav(user_id,board_id) values (#{param1},#{param2})
 </insert>
 
 <!-- 게시글 좋아요 취소하기 -->
@@ -49,7 +49,7 @@ delete from fav where user_id=#{userId} and board_id=#{boardId}
 
 <!-- 해당 글에 좋아요 누른 내역이 있는지 확인하기 -->
 <select id="favHistory" resultMap="Fav">
-select * from fav where user_id=#{userId} and board_id=#{boardId}
+select * from fav where user_id=#{param1} and board_id=#{param2}
 </select>
 
 <!-- 게시글 좋아요 목록 보기 -->
