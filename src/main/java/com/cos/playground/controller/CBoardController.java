@@ -229,7 +229,7 @@ public class CBoardController {
 	}
 
 	// 게시글 삭제하기
-	@DeleteMapping("delete/{id}")
+	@PostMapping("delete/{id}")
 	public CMRespDto<CBoard> delete(@PathVariable int id, @RequestBody User user) {
 		// 게시글의 writer 정보와 현재 로그인한 user의 정보를 알아야함
 		CBoard board = boardService.findById(id); // 게시글 하나의 정보를 가져옴

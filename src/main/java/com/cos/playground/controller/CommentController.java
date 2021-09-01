@@ -94,7 +94,7 @@ public class CommentController {
 	
 	// 댓글 삭제하기
 	// 안드로이드에서 userID를 받아야할듯
-	@DeleteMapping("delete/{cid}")
+	@PostMapping("delete/{cid}")
 	public CMRespDto<Comment> deleteComment(@PathVariable int cid, @RequestBody User user,
 			HttpServletRequest request){
 		CMRespDto<Comment> cm = new CMRespDto<Comment>();
